@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="main.css">
+        <title>Form</title>
+    </head>
+    <body>
+
+        <div class="navigation-bar">
+            <ul class="nav-breadcrumb">
+                <li><a href="http://127.0.0.1:5500/main.html">Home</a></li>
+                <li><a href="http://127.0.0.1:5500/forms.html">Forms</a></li>
+                <li><a href="http://127.0.0.1:5500/about.html">About</a></li>
+                <li>Francisco</li>
+                <li><marquee>mamaguebo</marquee></li>
+            </ul>
+        </div>
+        <div class="welcome-div">
+            <h1>Please fill in the form</h1>
+            <form>
+                <label for="name">Name</label><br>
+                <input id="name" type="text" required><br>
+                <label for="lastName">Last name</label><br>
+                <input id="lastName" type="text" required><br>
+                <label for="age">Age</label><br>
+                <input id="age" type="number" required><br>
+                <label for="email">Email</label><br>
+                <input id="email" type="email" required><br>
+                <input type="submit" value="Submit" onclick="getText()">
+            </form>
+        </div>
+        <script>
+            function getText(event){
+                event.preventDefault();
+                var inputName = document.getElementById("name").value
+                var inputLastName = document.getElementById("lastName").value
+                var inputAge = document.getElementById("age").value
+                var inputEmail = document.getElementById("email").value
+                axios.post('https://jsonplaceholder.typicode.com/users', {
+                    firstName: inputName,
+                    lastName: inputLastName,
+                    age: inputAge,
+                    email: inputEmail
+                })
+                .then(response => {
+                    console.log('Success', response.data);
+                    alert("Succesfully sent")
+                })
+                .catch(error => {
+                    console.error('Error', error);
+                });
+            }
+            document.querySelector("form").addEventListener("submit", getText);
+        </script>
+    </body>
+</html>
